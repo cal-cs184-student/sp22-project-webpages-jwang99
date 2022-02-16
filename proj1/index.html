@@ -43,15 +43,35 @@
 
 <p>In our triangle rasterizing algorithm, we create a bounding box based on the minimum and maximum x and y coordinates of the corners of the triangle, while also taking into consideration the boundaries of the screen. Then, we iterate through each coordinate within this bounding box, and use vectors perpendicular to the lines that define the edges of the triangle to check if each point is within the triangle or not; this is done by checking if a point is inside the triangle when the points are defined either clockwise or anticlockwise (i.e. checking that the dot product of a point and the perpendicular vectors are all either < 0 or >= 0). If a point is inside the triangle, the corresponding pixel is rasterized with the appropriate color.</p>
 
-
+<img src="images/basic4_screenshot.png" align="middle" width="500px"/>
 
 <h3 align="middle">Part 2: Antialiasing triangles</h3>
 <p>To implement supersampling, we introduced another variable when iterating through the samples in a triangle to denote the index of a supersample within a pixel. This variable k is defined such that floor(k/sqrt(supersampling rate)) is the row of the supersample within a pixel, and k mod sqrt(supersampling rate) is the column. For each supersample, we calculate its appropriate (x,y) coordinates and fill the buffer with the same algorithm as task 1. Then, upon populating the frame buffer from the sampling buffer, we average each supersample within a pixel to get the color of the pixel.
 This supersampling algorithm is helpful to prevent antialiasing because we are able to sample more high frequencies through supersampling, and then by averaging the supersamples we are filtering out the high frequencies, which reduces artifacts from directly sampling them.
 </p>
+<div align="middle">
+  <table style="width=100%">
+    <tr>
+      <td>
+        <img src="images/basic4_1px.png" align="middle" width="500px"/>
+        <figcaption align="middle">A map image sampled using nearest-pixel pixel sampling at supersampling rate of 1 per pixel shows sharp segmented verticle white lines and also some slight color segmentation on horizontal map lines.</figcaption>
+      </td>
+      <td>
+        <img src="images/basic4_4px.png" align="middle" width="500px"/>
+        <figcaption align="middle">A map image sampled using nearest-pixel pixel sampling at supersampling rate of 16 per pixel shows significantly smoother continuous grey map-lines in both vertical and horizontal directions still with some slight color segmentation in the horizontal line.</figcaption>
+      </td>
+      <td>
+        <img src="images/basic4_16px.png" align="middle" width="500px"/>
+        <figcaption align="middle">A map image sampled using bilinear pixel sampling at supersampling rate of 1 per pixel shows slightly blurrier white but still segmented verticle white lines and no color segmentation on horizontal map-lines.</figcaption>
+      </td>
+    </tr>
+    
+  </table>
+</div>
 
-
-
+<p>We can see that the jaggies are much more prominient in the supersampling rate of 1 pixel; generally, the image has significant aliasing. With 4 px, these jaggies are significantly reduced: the edges are blurred, and the jaggies can only be seen upon close inspection. With 16 px, the edges are very blurred and there are
+  basically no jaggies. This is because the higher supersampling rates capture the high frequencies of the image, then filter them out, reducing the aliasing.
+</p>
 <h3 align="middle">Part 3: Transforms</h3>
 <p>For this task, we simply implemented the 3x3 2D homogeneous transform matrices to be returned. For translation, the rotation matrix is the 2x2 identity, and the translation vector reflects our desired change in position. For scaling, the rotation matrix becomes a 2x2 scaled diagonal matrix, with the elements of the diagonal as our x and y scales respectively. Our rotation matrix follows the standard 2x2 rotation matrix, defined by the trigonometry of rotated vectors.
 We made cubeman wave by rotating the entire left arm upwards (clockwise about the shoulder), and additionally rotating the forearm limb more in this direction about the elbow joint.
