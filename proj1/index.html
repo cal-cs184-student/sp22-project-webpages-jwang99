@@ -43,33 +43,6 @@
 
 <p>In our triangle rasterizing algorithm, we create a bounding box based on the minimum and maximum x and y coordinates of the corners of the triangle, while also taking into consideration the boundaries of the screen. Then, we iterate through each coordinate within this bounding box, and use vectors perpendicular to the lines that define the edges of the triangle to check if each point is within the triangle or not; this is done by checking if a point is inside the triangle when the points are defined either clockwise or anticlockwise (i.e. checking that the dot product of a point and the perpendicular vectors are all either < 0 or >= 0). If a point is inside the triangle, the corresponding pixel is rasterized with the appropriate color.</p>
 
-<p>Here is an example 2x2 gridlike structure using an HTML table. Each <b>tr</b> is a row and each <b>td</b> is a column in that row. You might find this useful for framing and showing your result images in an organized fashion.</p>
-
-<div align="middle">
-  <table style="width=100%">
-    <tr>
-      <td>
-        <img src="images/image1.png" align="middle" width="400px"/>
-        <figcaption align="middle">Caption goes here.</figcaption>
-      </td>
-      <td>
-        <img src="images/image2.png" align="middle" width="400px"/>
-        <figcaption align="middle">Caption goes here.</figcaption>
-      </td>
-    </tr>
-    <br>
-    <tr>
-      <td>
-        <img src="images/image3.png" align="middle" width="400px"/>
-        <figcaption align="middle">Caption goes here.</figcaption>
-      </td>
-      <td>
-        <img src="images/image4.png" align="middle" width="400px"/>
-        <figcaption align="middle">Caption goes here.</figcaption>
-      </td>
-    </tr>
-  </table>
-</div>
 
 
 <h3 align="middle">Part 2: Antialiasing triangles</h3>
@@ -83,14 +56,14 @@ This supersampling algorithm is helpful to prevent antialiasing because we are a
 <p>For this task, we simply implemented the 3x3 2D homogeneous transform matrices to be returned. For translation, the rotation matrix is the 2x2 identity, and the translation vector reflects our desired change in position. For scaling, the rotation matrix becomes a 2x2 scaled diagonal matrix, with the elements of the diagonal as our x and y scales respectively. Our rotation matrix follows the standard 2x2 rotation matrix, defined by the trigonometry of rotated vectors.
 We made cubeman wave by rotating the entire left arm upwards (clockwise about the shoulder), and additionally rotating the forearm limb more in this direction about the elbow joint.
 </p>
-
+<img src="images/cubeman.png" align="middle" width="500px"/>
 
 
 <h2 align="middle">Section II: Sampling</h2>
 
 <h3 align="middle">Part 4: Barycentric coordinates</h3>
 <p>Barycentric coordinates are three scalar values used to describe the ratio between the perpendicular distance from a point to each edge of the triangle, and the perpendicular distance from that line to its opposite edge. When properties like color or texture coordinates are assigned to each of the 3 corners in the triangle, we can use the barycentric coordinates as “likeness” indicators to know how much or how little of the properties in each corner to adopt at any given point inside the triangle; the closer to a corner, the more strongly its properties will be adopted. Since barycentric coordinates will always add up to equal 1, this results in a smooth transition between the property “extremes” at the three corners of the triangle over the other points inside the triangle.</p>
-
+<img src="images/barycentrictri.png" align="middle" width="500px"/>
 
 <h3 align="middle">Part 5: "Pixel sampling" for texture mapping</h3>
 
