@@ -73,8 +73,131 @@
     <br><br><br><br>
     <h2 align="middle">Part 2: Bounding Volume Hierarchy: </h2>
     	<h3>BVH Construction Algorithm</h3>
+    	<p>The Construction of a Bounding Volume Hierarchy is a recursive process, where the BVH itself is a tree structure of BVH Nodes. When given a list of primitives that we are trying to segment into separate bounding volumes, if the number of primitives in this list is small enough to be contained in a single leaf node, then allocate a leaf node and the process is finished. Otherwise, if the number of primitives is too large to be contained in a single leaf node, we need to divide the primitives in half and create a sub-BVH tree for each half. The way that the primitives are allocated into 2 groups is: determine which axis (x, y, z) has the widest range in which primitives exist, and find the midpoint of this range. All primitives whose centroid is on one side of this midpoint gets put into one group, and all primitives whose centroid is on the other side is put into the other group. If there arises a situation in which one of these 2 groups has no primitives, forcibly move one primitve from the other group into this group.
     	<h3>Example images with normal shading for a few large .dae files using BVH acceleration</h3>
+
+    	<div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part2/banana.png" width="480px" />
+                    <figcaption align="middle">banana.dae renderred with normal shading</figcaption>
+                </tr>
+            </table>
+        </div>
+        <br><br><br>
+
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part2/cow.png" width="480px" />
+                    <figcaption align="middle">cow.dae renderred with normal shading</figcaption>
+                </tr>
+            </table>
+        </div>
+        <br><br><br>
+
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part2/maxplanck.png" width="480px" />
+                    <figcaption align="middle">maxplanck.dae renderred with normal shading</figcaption>
+                </tr>
+            </table>
+        </div>
+        <br><br><br>
+
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part2/CBlucy.png" width="480px" />
+                    <figcaption align="middle">CBlucy.dae renderred with normal shading</figcaption>
+                </tr>
+            </table>
+        </div>
+
     	<h3>Render Time Comparison on Complex Geometries With and Without BVH acceleration</h3>
+    	<p>Rendering time for complex geometries decreased SUBSTANTIALLY when BVH acceleration was used. This is because we no longer have to check for intersection between each ray and EVERY SINGLE primitive in the scene we are trying to render. For complex geometries like maxplanck.dae and CBlucy.dae, these contain over 50,000 and 130,000 primitives respectively. To do a linear search for intersection with each primitive for each ray would take incredibly long. When BVH acceleration is used, not only can we first check for possible intersection with a collection of primitives by using BBox-es that envelop multiple primitives, but due to the tree structure of the BVH, we can cut down the search space of our intersetion in half with every recursive call leading to significantly improved performance. These performance improvements can be seen in the render time comparisons of the following scenes with and without BVH acceleration. Notice that CBlucy.dae was not attempted without BVH acceleration because maxplanck already couldn't finish renderring within 2 minutes despite being able to finish in .06 seconds with BVH acceleration</p>
+
+    	<div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part2/rendertime_noBVH/banana.png" width="480px" />
+                    <figcaption align="middle">banana.dae renderred in 21 seconds with normal shading WITHOUT BVH acceleration</figcaption>
+                </tr>
+            </table>
+        </div>
+        <br><br><br>
+
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part2/rendertime_noBVH/cow.png" width="480px" />
+                    <figcaption align="middle">cow.dae renderred in 34 seconds with normal shading WITHOUT BVH acceleration</figcaption>
+                </tr>
+            </table>
+        </div>
+        <br><br><br>
+
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part2/rendertime_noBVH/maxplanck.png" width="480px" />
+                    <figcaption align="middle">the progress made in 2 minutes to render maxplanck.dae with normal shading WITHOUT BVH acceleration</figcaption>
+                </tr>
+            </table>
+        </div>
+        <br><br><br>
+
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part2/rendertime_withBVH/banana.png" width="480px" />
+                    <figcaption align="middle">banana.dae renderred in 0.14 seconds with normal shading WITH BVH acceleration</figcaption>
+                </tr>
+            </table>
+        </div>
+        <br><br><br>
+
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part2/rendertime_withBVH/cow.png" width="480px" />
+                    <figcaption align="middle">cow.dae renderred in 0.04 seconds with normal shading WITH BVH acceleration</figcaption>
+                </tr>
+            </table>
+        </div>
+        <br><br><br>
+
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part2/rendertime_withBVH/maxplanck.png" width="480px" />
+                    <figcaption align="middle">maxplanck.dae renderred in 0.06 seconds with normal shading WITH BVH acceleration</figcaption>
+                </tr>
+            </table>
+        </div>
+        <br><br><br>
+
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part2/rendertime_withBVH/CBlucy.png" width="480px" />
+                    <figcaption align="middle">CBlucy.dae renderred in 0.05 seconds with normal shading WITH BVH acceleration</figcaption>
+                </tr>
+            </table>
+        </div>
+        <br><br><br>
 
         <p>Describe what you did in Part 1. etc...</p>
         <div align="center">
