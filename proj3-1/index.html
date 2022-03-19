@@ -1,7 +1,112 @@
-<html>
-	<head>
-	</head>
-	<body>
-		Project 3-1 here
-	</body>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<style>
+  body {
+    padding: 100px;
+    width: 1000px;
+    margin: auto;
+    text-align: left;
+    font-weight: 300;
+    font-family: 'Open Sans', sans-serif;
+    color: #121212;
+  }
+  h1, h2, h3, h4 {
+    font-family: 'Source Sans Pro', sans-serif;
+  }
+</style>
+<title>CS 184 Rasterizer</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link href="https://fonts.googleapis.com/css?family=Open+Sans|Source+Sans+Pro" rel="stylesheet">
+</head>
+
+
+<body>
+
+<h1 align="middle">CS 184: Computer Graphics and Imaging, Spring 2022</h1>
+<h1 align="middle">Project 3</h1>
+<h2 align="middle">Jasmine Wang, 3034027325</h2>
+<h2 align="middle">Victor Ho, 3033712816</h2>
+<h2 align="middle">website link:</h2>
+ <a href="https://cal-cs184-student.github.io/sp22-project-webpages-jwang99/proj2/index.html">https://cal-cs184-student.github.io/sp22-project-webpages-jwang99/proj2/index.html</a>
+
+<br><br>
+
+<h1 align="middle">Assignment 3: PathTracer</h1>
+    <h2 align="middle">Your Name</h2>
+
+    <div class="padded">
+        <p>In this Project, we created the foundation for shading and coloring objects in a lit scene through ray tracing. We first established the basic tools such as detecting intersection with primitives, mapping world points to pixel locations, and building a BVH datastructure that makes intersection detection more efficient. Then we implemented progressively more complex illumination schemes starting with direct (zero and single bounce) lighting and eventually incorporating indirect (atleast one bounce) illumination, which used the primitives previously established to determine the proper illumination for pixels representing different points in a scene. Finally, we added an algorithm to speedup the rendering process of these scenes by establishing a "sampled enough" heuristic through adaptive sampling</p>
+
+    <h2 align="middle">Part 1: Ray Generation and Scene Intersection: </h2>
+
+    	<h3>Ray generation and primitve intersections</h3>
+    	<p>Ray generation and primitive intersection is the first step in the rendering pipeline. In order for a camera to be able to render an image of what a 3D scene looks like, it must determine what should be represented in each pixel of the image. To do so, a transfomration is first established between the camera's image (normalized image coordinates) and the camera's virtual sensor (world frame coordinates), a plane orthogonal to the camera's direction. Then, we create a ray in the the world frame, from the cameras location, to the point in the world frame which corresponds to the location of that pixel. This ray represents the "viewing direction" for the objects that should be seen in the pixel. This process is known as ray generation.</p>
+    	<p>Once the appropriate ray has been generated, to properly determine what color or object should appear in the image at each image coordinate, just follow along the direction of the ray until it intersects an object primitive (triangle, sphere, etc) that is used to build objects in the scene. Once an intersection is detected, the color of the image coordinate, should be dependent on the illuminance of the object in reverse direction of the ray.</p>
+
+    	<h3>Triangle Intersection Algorithm</h3>
+    	<p>My triangle-ray intersection algorithm is primarily built off of the Moller Trumbore Algorithm. Using the Moller Trumbore Algorithm on the triangle-ray pair that we are finding an intersection for, we get the values t (time of intersection), b1, and b2 (two of the 3 barycentric coordinates for the triangle). We first inspect the t value to make sure that it is within the lifespan of the ray (between t_min and t_max), since rays are considered as finite segments of the entire ray. Then we check the barycentric coordinates b0 = 1-b1-b2, b1, and b2 returned by the Moller Trumbore Algorithm to make sure that they represent a point that is actually INSIDE the triangle, meaning that all barycentric coordinates are between 0 and 1. If both conditions are true, the intersection is within the lifespan of the ray and the intersection point is inside the triangle, then there is an intersection between the given ray and triangle. </p>
+
+    	<h3>Example images with normal shading for a few small .dae files</h3>
+
+    	<div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part1/CBEmpty.png" width="480px" />
+                    <figcaption align="middle">CBEmpty.dae renderred with normal shading</figcaption>
+                </tr>
+            </table>
+        </div>
+
+        <br><br><br>
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part1/CBSpheres.png" width="480px" />
+                    <figcaption align="middle">CBSpheres_lambertian.dae renderred with normal shading</figcaption>
+                </tr>
+            </table>
+        </div>
+
+    <br><br><br><br>
+    <h2 align="middle">Part 2: Bounding Volume Hierarchy: </h2>
+    	<h3>BVH Construction Algorithm</h3>
+    	<h3>Example images with normal shading for a few large .dae files using BVH acceleration</h3>
+    	<h3>Render Time Comparison on Complex Geometries With and Without BVH acceleration</h3>
+
+        <p>Describe what you did in Part 1. etc...</p>
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part1/CBEmpty.png" width="480px" />
+                    <figcaption align="middle">Results Caption: my bunny is the bounciest bunny</figcaption>
+                </tr>
+            </table>
+        </div>
+        <p>Here is an example of how to include a simple formula:</p>
+        <p align="middle"><pre align="middle">a^2 + b^2 = c^2</pre></p>
+        <p>or, alternatively, you can include an SVG image of a LaTex formula.</p>
+        <p>This time it's your job to copy-paste in the rest of the sections :)</p>
+
+
+
+    <h2 align="middle">A Few Notes On Webpages</h2>
+        <p>Here are a few problems students have encountered in the past. You will probably encounter these problems at some point, so don't wait until right before the deadline to check that everything is working. Test your website on the instructional machines early!</p>
+        <ul>
+        <li>Your main report page should be called index.html.</li>
+        <li>Be sure to include and turn in all of the other files (such as images) that are linked in your report!</li>
+        <li>Use only <em>relative</em> paths to files, such as <pre>"./images/image.jpg"</pre>
+        Do <em>NOT</em> use absolute paths, such as <pre>"/Users/student/Desktop/image.jpg"</pre></li>
+        <li>Pay close attention to your filename extensions. Remember that on UNIX systems (such as the instructional machines), capitalization matters. <pre>.png != .jpeg != .jpg != .JPG</pre>
+        <li>Be sure to adjust the permissions on your files so that they are world readable. For more information on this please see this tutorial: <a href="http://www.grymoire.com/Unix/Permissions.html">http://www.grymoire.com/Unix/Permissions.html</a></li>
+        <li>And again, test your website on the instructional machines early!</li>
+</div>
+</body>
 </html>
+
+
+
+
