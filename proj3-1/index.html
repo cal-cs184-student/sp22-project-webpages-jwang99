@@ -213,7 +213,56 @@
         <p align="middle"><pre align="middle">a^2 + b^2 = c^2</pre></p>
         <p>or, alternatively, you can include an SVG image of a LaTex formula.</p>
         <p>This time it's your job to copy-paste in the rest of the sections :)</p>
+  
+  
+  
+  
+  
+   <h2 align="middle">Part 5: Adaptive Sampling: </h2>
+    	<h3>Adaptive Sampling Implementation</h3>
+      <p>To implement adaptive sampling, we used the algorithm described in the spec. Instead of the previous implementation of a fixed n samples per pixel, we terminate sampling when a function of the variance of the samples, number of samples, and mean of the samples has been fulfilled. Once our samples have converged to the desired degree, we stop sampling.</p>
+      <p>We define two more variables, s1 and s2, to help us check after each sample if we have converged enough to stop sampling. We store in s1 a running sum of all of the illuminance values of the samples, and we store in s2 a running sum of the square of the illuminance values of the samples.
+        From these two values, we can calculate our mean and variance of our samples so far: the mean is defined as s1 divided by the number of samples, and the variance is defined as sqrt((1/(n-1)) * (s2 - s1**2/n)), where n is our number of samples. From these statistics, we can calculate our heuristic value I, which is defined as 1.96 * variance / sqrt(numsamples).
+        We want to terminate sampling when I <= maxtolerance * mean, where maxtolerance is a hyperparamter (0.05 by default.) For efficiency, we only calculate the heuristic once every numsamplesperbatch samples, where numsamplesberpatch is a hyperparameter (default 32), and terminate sampling once this check passes or we reach the maximum allowed number of samples.</p>
+    	<h3>Example images showing the image rendered using adaptive sampling as well as the sample rate image, where red signifies the highest sampling rate and blue signifies the lowest sampling rate.</h3>
 
+    	<div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part5/bunny.png" width="480px" />
+                    <figcaption align="middle">bunny rendered with adaptive sampling</figcaption>
+                </tr>
+                <tr>
+                    <td align="middle">
+                    <img src="images/part5/bunny_rate.png" width="480px" />
+                    <figcaption align="middle">sampling rates of bunny sampled with adaptive sampling</figcaption>
+                </tr>
+            </table>
+        </div>
+
+
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part5/dragon_adaptive.png" width="480px" />
+                    <figcaption align="middle">dragon rendered with adaptive sampling<</figcaption>
+                </tr>
+                <tr>
+                    <td align="middle">
+                    <img src="images/part5/dragon_adaptive_rate.png" width="480px" />
+                    <figcaption align="middle">sampling rates of dragon sampled with adaptive sampling<</figcaption>
+                </tr>
+            </table>
+        </div>
+        <br><br><br>
+       
+        
+              <p>We see here that the shadows and darker areas have significantly higher sampling rates than those in direct light. This is because for these areas, the variance in the samples was much higher. This is also why these areas were much noisier without adaptive sampling. Thus, using this heuristic, we naturally sample noisier areas more</p>
+
+
+    	
 
 
     <h2 align="middle">A Few Notes On Webpages</h2>
