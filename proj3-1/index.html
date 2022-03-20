@@ -237,7 +237,7 @@
                 <tr>
                     <td align="middle">
                     <img src="images/part3/bunny_hemisphere.png" width="480px" />
-                    <figcaption align="middle">CBBunny.dae renderred with the uniform hemisphere sampling implementation of the direct lighting function</figcaption>
+                    <figcaption align="middle">CBbunny.dae renderred with the uniform hemisphere sampling implementation of the direct lighting function</figcaption>
                 </tr>
             </table>
         </div>
@@ -248,7 +248,7 @@
                 <tr>
                     <td align="middle">
                     <img src="images/part3/bunny_light.png" width="480px" />
-                    <figcaption align="middle">CBBunny.dae renderred with the importance sampling lights implementation of the direct lighting function, demonstrating dramatically reduced noise in the image</figcaption>
+                    <figcaption align="middle">CBbunny.dae renderred with the importance sampling lights implementation of the direct lighting function, demonstrating dramatically reduced noise in the image</figcaption>
                 </tr>
             </table>
         </div>
@@ -276,14 +276,14 @@
         </div>
         <br><br><br>
 
-        <h3>Comparison of Noise Levels in Soft Shadows in CBBunny.dae with varying numbers of light rays, when renderred with 1 sample per pixel and the importance sampling implementation of the direct lighting function</h3>
+        <h3>Comparison of Noise Levels in Soft Shadows in CBbunny.dae with varying numbers of light rays, when renderred with 1 sample per pixel and the importance sampling implementation of the direct lighting function</h3>
 
         <div align="center">
             <table style="width=100%">
                 <tr>
                     <td align="middle">
                     <img src="images/part3/bunny_1.png" width="480px" />
-                    <figcaption align="middle">CBBunny.dae renderred with 1 light ray, showing a significant amount of noise in soft shadows. The edges of the shadow of the bunny as well as in the corners of the room don't fade smoothly, instead are seen as wide pools of heavy shadow.</figcaption>
+                    <figcaption align="middle">CBbunny.dae renderred with 1 light ray, showing a significant amount of noise in soft shadows. The edges of the shadow of the bunny as well as in the corners of the room don't fade smoothly, instead are seen as wide pools of heavy shadow.</figcaption>
                 </tr>
             </table>
         </div>
@@ -294,7 +294,7 @@
                 <tr>
                     <td align="middle">
                     <img src="images/part3/bunny_4.png" width="480px" />
-                    <figcaption align="middle">CBBunny.dae renderred with 4 light ray, shows significant improvement in the noise in the soft shadows compared to when renderred with 1 light ray</figcaption>
+                    <figcaption align="middle">CBbunny.dae renderred with 4 light ray, shows significant improvement in the noise in the soft shadows compared to when renderred with 1 light ray</figcaption>
                 </tr>
             </table>
         </div>
@@ -305,7 +305,7 @@
                 <tr>
                     <td align="middle">
                     <img src="images/part3/bunny_16.png" width="480px" />
-                    <figcaption align="middle">CBBunny.dae renderred with 16 light ray shows lower levels of noise in the edges of shadows shows significantly reduced intensity and much better diffused as seen from the shadows' edges being more grey than black now</figcaption>
+                    <figcaption align="middle">CBbunny.dae renderred with 16 light ray shows lower levels of noise in the edges of shadows shows significantly reduced intensity and much better diffused as seen from the shadows' edges being more grey than black now</figcaption>
                 </tr>
             </table>
         </div>
@@ -316,20 +316,154 @@
                 <tr>
                     <td align="middle">
                     <img src="images/part3/bunny_64.png" width="480px" />
-                    <figcaption align="middle">CBBunny.dae renderred with 64 light ray, showing significantly less noise in soft shadows, as witnessed in the edges of the bunny's shadow and the corners of the room, the shadow  diminishes gracefully and smoothly in soft shadow regions.</figcaption>
+                    <figcaption align="middle">CBbunny.dae renderred with 64 light ray, showing significantly less noise in soft shadows, as witnessed in the edges of the bunny's shadow and the corners of the room, the shadow  diminishes gracefully and smoothly in soft shadow regions.</figcaption>
+                </tr>
+            </table>
+        </div>
+        <br><br><br>
+
+        <h3>Comparison of importance and uniform hemisphere light sampling</h3>
+
+        <p>As we can see above, the results differ drastically for direct lighting by importance sampling and for direct lighting with uniform hemisphere sampling. The first major difference is that for our point light source, the bench, the bench is not rendered at all for the hemisphere sampling. This is because it is unlikely that the exact direction towards the point light is sampled with this mode,
+      	so our algorithm simply doesn't find any sources of illuminance in uniformly sampling across the hemisphere for some point/pixel. In comparison, in importance sampling we only sample the valid directions from the bench to the point light source, allowing us to actually detect the point light source. For the other two images, the spheres and the bunny, we can see that the importance sampling yields a much less noisy image. While the uniform
+      	hemisphere sampling results in a lot of graininess due to a high variance in samples across the hemisphere and missing the light source in the vast majority of the samples, our importance sampled images are very smooth because the samples are dedicated towards directions that actually contribute or are likely to contribute to our lighting.</p>
+
+    <h2 align="middle">Part 4: Indirect Illumination: </h2>
+    	<h3>Some Images Rendered with Global (direct and indirect) Illumination at 1024 Samples Per Pixel</h3>
+
+    	<div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part4/full/spheres_full.png" width="480px" />
+                    <figcaption align="middle">CBSpheres_lambertian.dae renderred with global illumination at 1024 samples per pixel.</figcaption>
+                </tr>
+            </table>
+        </div>
+        <br><br><br>
+
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part4/full/bunny_full.png" width="480px" />
+                    <figcaption align="middle">CBbunny.dae renderred with global illumination at 1024 samples per pixel.</figcaption>
+                </tr>
+            </table>
+        </div>
+        <br><br><br>
+
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part4/full/dragon_full.png" width="480px" />
+                    <figcaption align="middle">dragon.dae renderred with global illumination at 1024 samples per pixel.</figcaption>
                 </tr>
             </table>
         </div>
         <br><br><br>
 
 
-        <h3>Comparison of importance and uniform hemisphere light sampling</h3>
+        <h3>Comparison of One Scene Renderred with Only Direct Illumination, then Only Indirect Illumination at 1024 Samples Per Pixel</h3>
 
-        <p>As we can see above, the results differ drastically for direct lighting by importance sampling and for direct lighting with uniform hemisphere sampling. The first major difference is that for our point light source, the bench, the bench is not rendered at all for the hemisphere sampling. This is because it is unlikely that the exact direction towards the point light is sampled with this mode,
-      so our algorithm simply doesn't find any sources of illuminance in uniformly sampling across the hemisphere for some point/pixel. In comparison, in importance sampling we only sample the valid directions from the bench to the point light source, allowing us to actually detect the point light source. For the other two images, the spheres and the bunny, we can see that the importance sampling yields a much less noisy image. While the uniform
-      hemisphere sampling results in a lot of graininess due to a high variance in samples across the hemisphere and missing the light source in the vast majority of the samples, our importance sampled images are very smooth because the samples are dedicated towards directions that actually contribute or are likely to contribute to our lighting.</p>
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part4/partial/bunny_direct.png" width="480px" />
+                    <figcaption align="middle">CBbunny.dae renderred with only direct illumination at 1024 samples per pixel.</figcaption>
+                </tr>
+            </table>
+        </div>
+        <br><br><br>
 
-  
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part4/partial/bunny_indirect.png" width="480px" />
+                    <figcaption align="middle">CBbunny.dae renderred with only direct illumination at 1024 samples per pixel.</figcaption>
+                </tr>
+            </table>
+        </div>
+        <br><br><br>
+
+
+        <h3>For CBbunny.dae, compare rendered views with max_ray_depth set to 0, 1, 2, 3, and 100 (the -m flag). Use 1024 samples per pixel.</h3>
+
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part4/depth/bunny_m0.png" width="480px" />
+                    <figcaption align="middle">CBbunny.dae renderred with max_ray_depth set to 0 at 1024 samples per pixel, which is basically just one bounce (direct) illumination.</figcaption>
+                </tr>
+            </table>
+        </div>
+        <br><br><br>
+
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part4/depth/bunny_m1.png" width="480px" />
+                    <figcaption align="middle">CBbunny.dae renderred with max_ray_depth set to 1 at 1024 samples per pixel.</figcaption>
+                </tr>
+            </table>
+        </div>
+        <br><br><br>
+
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part4/depth/bunny_m2.png" width="480px" />
+                    <figcaption align="middle">CBbunny.dae renderred with max_ray_depth set to 2 at 1024 samples per pixel.</figcaption>
+                </tr>
+            </table>
+        </div>
+        <br><br><br>
+
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part4/depth/bunny_m3.png" width="480px" />
+                    <figcaption align="middle">CBbunny.dae renderred with max_ray_depth set to 3 at 1024 samples per pixel.</figcaption>
+                </tr>
+            </table>
+        </div>
+        <br><br><br>
+
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part4/depth/bunny_m100.png" width="480px" />
+                    <figcaption align="middle">CBbunny.dae renderred with max_ray_depth set to 100 at 1024 samples per pixel.</figcaption>
+                </tr>
+            </table>
+        </div>
+        <br><br><br>
+
+
+
+
+        <p>Describe what you did in Part 1. etc...</p>
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part1/CBEmpty.png" width="480px" />
+                    <figcaption align="middle">Results Caption: my bunny is the bounciest bunny</figcaption>
+                </tr>
+            </table>
+        </div>
+        <p>Here is an example of how to include a simple formula:</p>
+        <p align="middle"><pre align="middle">a^2 + b^2 = c^2</pre></p>
+        <p>or, alternatively, you can include an SVG image of a LaTex formula.</p>
+        <p>This time it's your job to copy-paste in the rest of the sections :)</p> 
   
   
   
