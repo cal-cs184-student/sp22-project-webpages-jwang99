@@ -323,20 +323,12 @@
         <br><br><br>
 
 
-        <p>Describe what you did in Part 1. etc...</p>
-        <div align="center">
-            <table style="width=100%">
-                <tr>
-                    <td align="middle">
-                    <img src="images/part1/CBEmpty.png" width="480px" />
-                    <figcaption align="middle">Results Caption: my bunny is the bounciest bunny</figcaption>
-                </tr>
-            </table>
-        </div>
-        <p>Here is an example of how to include a simple formula:</p>
-        <p align="middle"><pre align="middle">a^2 + b^2 = c^2</pre></p>
-        <p>or, alternatively, you can include an SVG image of a LaTex formula.</p>
-        <p>This time it's your job to copy-paste in the rest of the sections :)</p>
+        <h3>Comparison of importance and uniform hemisphere light sampling</h3>
+
+        <p>As we can see above, the results differ drastically for direct lighting by importance sampling and for direct lighting with uniform hemisphere sampling. The first major difference is that for our point light source, the bench, the bench is not rendered at all for the hemisphere sampling. This is because it is unlikely that the exact direction towards the point light is sampled with this mode,
+      so our algorithm simply doesn't find any sources of illuminance in uniformly sampling across the hemisphere for some point/pixel. In comparison, in importance sampling we only sample the valid directions from the bench to the point light source, allowing us to actually detect the point light source. For the other two images, the spheres and the bunny, we can see that the importance sampling yields a much less noisy image. While the uniform
+      hemisphere sampling results in a lot of graininess due to a high variance in samples across the hemisphere and missing the light source in the vast majority of the samples, our importance sampled images are very smooth because the samples are dedicated towards directions that actually contribute or are likely to contribute to our lighting.</p>
+
   
   
   
