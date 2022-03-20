@@ -73,7 +73,7 @@
     <br><br><br><br>
     <h2 align="middle">Part 2: Bounding Volume Hierarchy: </h2>
     	<h3>BVH Construction Algorithm</h3>
-    	<p>The Construction of a Bounding Volume Hierarchy is a recursive process, where the BVH itself is a tree structure of BVH Nodes. When given a list of primitives that we are trying to segment into separate bounding volumes, if the number of primitives in this list is small enough to be contained in a single leaf node, then allocate a leaf node and the process is finished. Otherwise, if the number of primitives is too large to be contained in a single leaf node, we need to divide the primitives in half and create a sub-BVH tree for each half. The way that the primitives are allocated into 2 groups is: determine which axis (x, y, z) has the widest range in which primitives exist, and find the midpoint of this range. All primitives whose centroid is on one side of this midpoint gets put into one group, and all primitives whose centroid is on the other side is put into the other group. If there arises a situation in which one of these 2 groups has no primitives, forcibly move one primitve from the other group into this group.
+    	<p>The Construction of a Bounding Volume Hierarchy is a recursive process, where the BVH itself is a tree structure of BVH Nodes. When given a list of primitives that we are trying to segment into separate bounding volumes, if the number of primitives in this list is small enough to be contained in a single leaf node, then allocate a leaf node and the process is finished. Otherwise, if the number of primitives is too large to be contained in a single leaf node, we need to divide the primitives in half and create a sub-BVH tree for each half. The way that the primitives are allocated into 2 groups is: determine which axis (x, y, z) has the widest range in which primitives exist, and find the midpoint of this range. All primitives whose centroid is on one side of this midpoint gets put into one group, and all primitives whose centroid is on the other side is put into the other group. If there arises a situation in which one of these 2 groups has no primitives, forcibly move one primitve from the other group into this group. </p>
     	<h3>Example images with normal shading for a few large .dae files using BVH acceleration</h3>
 
     	<div align="center">
@@ -198,6 +198,130 @@
             </table>
         </div>
         <br><br><br>
+
+    <br><br><br><br>
+    <h2 align="middle">Part 3: Direct Illumination: </h2>
+    	<h3>Direct Lighting Implementation Walkthrough</h3>
+    	<h4>Uniform Hemisphere Sampling</h4>
+    	<p>To estimate the direct lighting at a given point, the uniform hemisphere sampling method involves taking a specified number of uniformly random sample directions within the hemisphere about that point. Then for each sample direction, trace a ray out in that direction (in the world frame) and determine if the ray intersects any other primitives in the scene within the lifespan of the ray. If there isn't an intersection, then this direction contributes nothing to the direct lighting at the given point. If there is an intersection, however, then we take into consideration the irradiance coming from the object the ray intersected. These irradiance values are included in one of the terms in the Monte Carlo estimation of the reflectance equation, which eventually represents the amount of outgoing light.</p>
+
+    	<h4>Importance Sampling Lights</h4>
+    	<p>To estimate the direct lighting at a given point, the importance sampling of lights operates differently from the Uniform Hemisphere Sampling method. Rather than taking uniform random samples in a hemisphere, this method iterate thorugh every light source in the scene. Depending on the type of light source, the method will either trace a ray (in the world frame) to that light source (point light source) or will trace rays to multiple points on the light sampled randomly (area light source). For each of these rays, if there is an intersection before the ray reaches the light source, then this sample on the light source contributes nothing to the direct lighting at the given point. If there is NOT an intersection with another primitive before the ray reaches the light source, then we take into consideration the light emitted by the light source at the point we sampled and include it in the total outgoing light from our original given poitn. This is somewhat opposite from the uniform hemisphere sampling method in which illuminance from a direction contributes to the outgoing light if there was an intersection in that direction. For area lights, the contributions of the rays for all samples on that area light are averaged to find the average contribution. The outgoing light from a given point due to all light sources are accumulated to equal the outgoing light from the given point</p>
+
+    	<h3>Some Images Renderred with Both Implementations of Direct Lighting Function</h3>
+
+    	<div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part3/spheres_hemisphere.png" width="480px" />
+                    <figcaption align="middle">CBSpheres_lambertian.dae renderred with the uniform hemisphere sampling implementation of the direct lighting function</figcaption>
+                </tr>
+            </table>
+        </div>
+        <br><br><br>
+
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part3/spheres_light.png" width="480px" />
+                    <figcaption align="middle">CBSpheres_lambertian.dae renderred with the importance sampling lights implementation of the direct lighting function, demonstrating dramatically reduced noise in the image</figcaption>
+                </tr>
+            </table>
+        </div>
+        <br><br><br>
+
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part3/bunny_hemisphere.png" width="480px" />
+                    <figcaption align="middle">CBBunny.dae renderred with the uniform hemisphere sampling implementation of the direct lighting function</figcaption>
+                </tr>
+            </table>
+        </div>
+        <br><br><br>
+
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part3/bunny_light.png" width="480px" />
+                    <figcaption align="middle">CBBunny.dae renderred with the importance sampling lights implementation of the direct lighting function, demonstrating dramatically reduced noise in the image</figcaption>
+                </tr>
+            </table>
+        </div>
+        <br><br><br>
+
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part3/bench_hemisphere.png" width="480px" />
+                    <figcaption align="middle">bench.dae renderred with the uniform hemisphere sampling implementation of the direct lighting function. This scene is black because there aren't other primitives in the scene to act as light sources and it's unlikely that the randomly sampled rays directions are pointing in the right direction to reach the light source</figcaption>
+                </tr>
+            </table>
+        </div>
+        <br><br><br>
+
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part3/bench_light.png" width="480px" />
+                    <figcaption align="middle">bench.dae renderred with the importance sampling lights implementation of the direct lighting function. The bench actually appears in this render becuase we explicitly traced rays to all light sources in the scene</figcaption>
+                </tr>
+            </table>
+        </div>
+        <br><br><br>
+
+        <h3>Comparison of Noise Levels in Soft Shadows in CBBunny.dae with varying numbers of light rays, when renderred with 1 sample per pixel and the importance sampling implementation of the direct lighting function</h3>
+
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part3/bunny_1.png" width="480px" />
+                    <figcaption align="middle">CBBunny.dae renderred with 1 light ray, showing a significant amount of noise in soft shadows. The edges of the shadow of the bunny as well as in the corners of the room don't fade smoothly, instead are seen as wide pools of heavy shadow.</figcaption>
+                </tr>
+            </table>
+        </div>
+        <br><br><br>
+
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part3/bunny_4.png" width="480px" />
+                    <figcaption align="middle">CBBunny.dae renderred with 4 light ray, shows significant improvement in the noise in the soft shadows compared to when renderred with 1 light ray</figcaption>
+                </tr>
+            </table>
+        </div>
+        <br><br><br>
+
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part3/bunny_16.png" width="480px" />
+                    <figcaption align="middle">CBBunny.dae renderred with 16 light ray shows lower levels of noise in the edges of shadows shows significantly reduced intensity and much better diffused as seen from the shadows' edges being more grey than black now</figcaption>
+                </tr>
+            </table>
+        </div>
+        <br><br><br>
+
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part3/bunny_64.png" width="480px" />
+                    <figcaption align="middle">CBBunny.dae renderred with 64 light ray, showing significantly less noise in soft shadows, as witnessed in the edges of the bunny's shadow and the corners of the room, the shadow  diminishes gracefully and smoothly in soft shadow regions.</figcaption>
+                </tr>
+            </table>
+        </div>
+        <br><br><br>
+
 
         <p>Describe what you did in Part 1. etc...</p>
         <div align="center">
