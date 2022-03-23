@@ -376,7 +376,8 @@
                 </tr>
             </table>
         </div>
-        <br><br><br>
+        <br><br>
+      
 
         <div align="center">
             <table style="width=100%">
@@ -387,7 +388,9 @@
                 </tr>
             </table>
         </div>
-        <br><br><br>
+        <br><br>
+      <p>As we can see, the direct lighting yields an image closer to the image with both direct and indirect illumination, with very hard, black shadows. The indirect illumination image
+      is brighter where the dark shadows in the indirect illumination are, i.e. on the ceiling and in the shadows of the bunny, while the areas hit by harsh direct lighting (the back of the bunny) are darker as there's less indirect lighting there.</p>
 
 
         <h3>For CBbunny.dae, compare rendered views with max_ray_depth set to 0, 1, 2, 3, and 100 (the -m flag). Use 1024 samples per pixel.</h3>
@@ -446,6 +449,8 @@
             </table>
         </div>
         <br><br><br>
+      
+      <p>Here we can see that the max ray depth of 0 produces the direct lighing illumination image, and the subsequent images have softer and softer shadows with diminishing diffrences as ray depth increases (3 and 100 are very similar)</p>
 
         <h3>Pick one scene and compare rendered views with various sample-per-pixel rates, including at least 1, 2, 4, 8, 16, 64, and 1024. Use 4 light rays.</h3>
 
@@ -525,6 +530,7 @@
             </table>
         </div>
         <br><br><br>
+      <p>Here, we can see that our first images with few samples per pixel are extremely noisy, as you'd expect, and as the samples per pixels increases the variance in the lighting of each pixel decreases, and visual noise decreases significantly.</p>
   
   
   
