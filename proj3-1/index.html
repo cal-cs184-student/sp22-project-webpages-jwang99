@@ -28,12 +28,11 @@
 <h2 align="middle">Jasmine Wang, 3034027325</h2>
 <h2 align="middle">Victor Ho, 3033712816</h2>
 <h2 align="middle">website link:</h2>
- <a href="https://cal-cs184-student.github.io/sp22-project-webpages-jwang99/proj2/index.html">https://cal-cs184-student.github.io/sp22-project-webpages-jwang99/proj2/index.html</a>
+ <a href="https://cal-cs184-student.github.io/sp22-project-webpages-jwang99/proj3-1/index.html">https://cal-cs184-student.github.io/sp22-project-webpages-jwang99/proj3-1/index.html</a>
 
 <br><br>
 
 <h1 align="middle">Assignment 3: PathTracer</h1>
-    <h2 align="middle">Your Name</h2>
 
     <div class="padded">
         <p>In this Project, we created the foundation for shading and coloring objects in a lit scene through ray tracing. We first established the basic tools such as detecting intersection with primitives, mapping world points to pixel locations, and building a BVH datastructure that makes intersection detection more efficient. Then we implemented progressively more complex illumination schemes starting with direct (zero and single bounce) lighting and eventually incorporating indirect (atleast one bounce) illumination, which used the primitives previously established to determine the proper illumination for pixels representing different points in a scene. Finally, we added an algorithm to speedup the rendering process of these scenes by establishing a "sampled enough" heuristic through adaptive sampling</p>
@@ -452,7 +451,7 @@
         </div>
         <br><br><br>
       
-      <p>Here we can see that the max ray depth of 0 produces the direct lighing illumination image, and the subsequent images have softer and softer shadows with diminishing diffrences as ray depth increases (3 and 100 are very similar)</p>
+      <p>Here we can see that the max ray depth of 0 produces the direct lighting illumination image, and the subsequent images have softer and softer shadows with diminishing diffrences as ray depth increases (3 and 100 are very similar)</p>
 
         <h3>Pick one scene and compare rendered views with various sample-per-pixel rates, including at least 1, 2, 4, 8, 16, 64, and 1024. Use 4 light rays.</h3>
 
@@ -461,7 +460,7 @@
                 <tr>
                     <td align="middle">
                     <img src="images/part4/samples/dragon_1.png" width="480px" />
-                    <figcaption align="middle">dragon.dae renderred with 1 sample per pixel and 4 light rays.</figcaption>
+                    <figcaption align="middle">dragon.dae rendered with 1 sample per pixel and 4 light rays.</figcaption>
                 </tr>
             </table>
         </div>
@@ -472,7 +471,7 @@
                 <tr>
                     <td align="middle">
                     <img src="images/part4/samples/dragon_2.png" width="480px" />
-                    <figcaption align="middle">dragon.dae renderred with 2 sample per pixel and 4 light rays.</figcaption>
+                    <figcaption align="middle">dragon.dae rendered with 2 sample per pixel and 4 light rays.</figcaption>
                 </tr>
             </table>
         </div>
@@ -483,7 +482,7 @@
                 <tr>
                     <td align="middle">
                     <img src="images/part4/samples/dragon_4.png" width="480px" />
-                    <figcaption align="middle">dragon.dae renderred with 4 sample per pixel and 4 light rays.</figcaption>
+                    <figcaption align="middle">dragon.dae rendered with 4 sample per pixel and 4 light rays.</figcaption>
                 </tr>
             </table>
         </div>
@@ -494,7 +493,7 @@
                 <tr>
                     <td align="middle">
                     <img src="images/part4/samples/dragon_8.png" width="480px" />
-                    <figcaption align="middle">dragon.dae renderred with 8 sample per pixel and 4 light rays.</figcaption>
+                    <figcaption align="middle">dragon.dae rendered with 8 sample per pixel and 4 light rays.</figcaption>
                 </tr>
             </table>
         </div>
@@ -505,7 +504,7 @@
                 <tr>
                     <td align="middle">
                     <img src="images/part4/samples/dragon_16.png" width="480px" />
-                    <figcaption align="middle">dragon.dae renderred with 16 sample per pixel and 4 light rays.</figcaption>
+                    <figcaption align="middle">dragon.dae rendered with 16 sample per pixel and 4 light rays.</figcaption>
                 </tr>
             </table>
         </div>
@@ -516,7 +515,7 @@
                 <tr>
                     <td align="middle">
                     <img src="images/part4/samples/dragon_64.png" width="480px" />
-                    <figcaption align="middle">dragon.dae renderred with 64 sample per pixel and 4 light rays.</figcaption>
+                    <figcaption align="middle">dragon.dae rendered with 64 sample per pixel and 4 light rays.</figcaption>
                 </tr>
             </table>
         </div>
@@ -527,7 +526,7 @@
                 <tr>
                     <td align="middle">
                     <img src="images/part4/samples/dragon_1024.png" width="480px" />
-                    <figcaption align="middle">dragon.dae renderred with 1024 sample per pixel and 4 light rays.</figcaption>
+                    <figcaption align="middle">dragon.dae rendered with 1024 sample per pixel and 4 light rays.</figcaption>
                 </tr>
             </table>
         </div>
@@ -584,16 +583,6 @@
     	
 
 
-    <h2 align="middle">A Few Notes On Webpages</h2>
-        <p>Here are a few problems students have encountered in the past. You will probably encounter these problems at some point, so don't wait until right before the deadline to check that everything is working. Test your website on the instructional machines early!</p>
-        <ul>
-        <li>Your main report page should be called index.html.</li>
-        <li>Be sure to include and turn in all of the other files (such as images) that are linked in your report!</li>
-        <li>Use only <em>relative</em> paths to files, such as <pre>"./images/image.jpg"</pre>
-        Do <em>NOT</em> use absolute paths, such as <pre>"/Users/student/Desktop/image.jpg"</pre></li>
-        <li>Pay close attention to your filename extensions. Remember that on UNIX systems (such as the instructional machines), capitalization matters. <pre>.png != .jpeg != .jpg != .JPG</pre>
-        <li>Be sure to adjust the permissions on your files so that they are world readable. For more information on this please see this tutorial: <a href="http://www.grymoire.com/Unix/Permissions.html">http://www.grymoire.com/Unix/Permissions.html</a></li>
-        <li>And again, test your website on the instructional machines early!</li>
 </div>
 </body>
 </html>
