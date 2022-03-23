@@ -329,6 +329,8 @@
       	hemisphere sampling results in a lot of graininess due to a high variance in samples across the hemisphere and missing the light source in the vast majority of the samples, our importance sampled images are very smooth because the samples are dedicated towards directions that actually contribute or are likely to contribute to our lighting.</p>
 
     <h2 align="middle">Part 4: Indirect Illumination: </h2>
+    	<h3>Walk through of our implementation for the indirect lighting function.</h3>
+    	<p>Our implementation of the indirect lighting function starts off with the one bounce direct lighting. Then it determines whether or not it should be considering any subsequent bounces and add to the indirect lighting term. Given a sample direction, the criteria used to determine whether or not additional bounces should be considered can be broken down into 3 parts. First, if the randomly sampled direction does NOT intersect with any other primitives in the scene, then we can't consider any subsequent bounces. Second, if the Russian roulette probability coinflip does NOT result in a continue, then we won'tconsider any subsequent bounces. Finally, if the max_depth number of bounces has been reached, then we won't consider any subseuent bounces either, where a max depth of 0 means no SUBSEQUENT bounces and only includes direct lighting. If all three criteria still determines that we should consider subsequent bounces to add to the indirect lighting term, we just apply the indirect lighting function process recursively but from the new intersection location in the sample direction. </p>
     	<h3>Some Images Rendered with Global (direct and indirect) Illumination at 1024 Samples Per Pixel</h3>
 
     	<div align="center">
@@ -384,7 +386,7 @@
                 <tr>
                     <td align="middle">
                     <img src="images/part4/partial/bunny_indirect.png" width="480px" />
-                    <figcaption align="middle">CBbunny.dae renderred with only direct illumination at 1024 samples per pixel.</figcaption>
+                    <figcaption align="middle">CBbunny.dae renderred with only indirect illumination at 1024 samples per pixel.</figcaption>
                 </tr>
             </table>
         </div>
