@@ -132,3 +132,109 @@ for mirrors, we don't have any Lambertian falloff, and we need to divide by cosi
 		<p> With 3 bounce, the refraction of the glass is now also visible.</p>
 		<p> With 4 bounce, we can now see the light that goes through the glass, bounces off the mirror, and into the viewer. We can also see more reflection on the bottom of the glass ball. The image is now mostly 
 			"complete"; with 5 bounce to 100 bounce, the lighting becomes more accurate and softer, with a similar effect as non mirror/glass objects.</p>
+
+
+	<br><br><br><br>
+    <h2 align="middle">Part 4: Depth of Field: </h2>
+    	<h3>Implementation Summary</h3>
+
+        <p>The goal of this function was to be able to return the ray from originating at pLens and heading towards pFocus in the world frame. The implementation of this function was pretty closely aligned with the description provided in the project spec. The first step was to look at the generated ray direction of the ray from proj 3-1, which was the ray from the origin of the camera's frame (where the camera is located) to the point corresponding point in the z=-1 plane of the camera's frame where the point (x, y) in image coordinates should map to. Then, by considering the direction of the ray as a velocity, we can see that in 1 timestep, it will travel 1 unit in the negative z direction (from z = 0 to z=-1), thus by scaling this vector by the focalDistance, we can identify the change in the x and y coordinates in the time it took to travel focalDistance units in the negative z direction (from z = 0 to z = -focalDistance). This 3D point in the camera's frame where z = -focalDistance is the point of intersection of the original ray through the camera's origin and the plane of focus, also referred to as pFocus.</p>
+
+        <p>Once pFocus was found, the next step was to find pLens. Taking the random sampling parameters (rndR and rndTheta) passed in via arguments in the function call, we generate pLens following the formula provided in the spec. After identifying both pLens and pFocus, we found the direction of the ray from pLens to pFocus by subtracting pLens from pFocus and then normalizing it. Now we have the origin and direction of the ray from pLens to pFocus in the camera frame, in order to get these two components in the world frame, we first multiply both 3-dimensional vectors by the c2w matrix. Then, because pLens is a point we also add the translation between the world and camera frames which is just the location of the camera, or pos. Now given the origin and direction of the ray from pLens to pFocus in the world frame, we construct the ray, set its near and far clips, and returned the ray.</p>
+
+    	<h3>Images that are focus at 4 visibly different depths through the CBDragon.dae scene renderred with the 64 samples per pixel and 4 samples per light and max_ray_depth of 5</h3>
+
+    	<div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part4/focus/f3.0.png" width="480px" />
+                    <figcaption align="middle">The scene captured with a camera with lensRadius of 0.2 and focalDistance of 3.0. The focal distance of this render is significantly infront of the dragon statue, making the entire scene quite blurry.</figcaption>
+                </tr>
+            </table>
+        </div>
+        <br><br><br>
+
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part4/focus/f4.5.png" width="480px" />
+                    <figcaption align="middle">The scene captured with a camera with lensRadius of 0.2 and focalDistance of 4.5. The focal distance of this render is about the depth of the dragon's mouth and front claw, allowing these features to show up clearly while other segments of the dragon are still blurry.</figcaption>
+                </tr>
+            </table>
+        </div>
+        <br><br><br>
+
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part4/focus/f4.8.png" width="480px" />
+                    <figcaption align="middle">The scene captured with a camera with lensRadius of 0.2 and focalDistance of 4.8. The focal distance of this render is at the middle section of the dragon, allowing the middle segment of the body and rear claw to show up clearly while other parts of the dragon are still blurry.</figcaption>
+                </tr>
+            </table>
+        </div>
+        <br><br><br>
+
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part4/focus/f5.2.png" width="480px" />
+                    <figcaption align="middle">The scene captured with a camera with lensRadius of 0.2 and focalDistance of 5.2. The focal distance of this render is at the tip of the tail, allowing it to appear in focus and show up clearly, while other parts of the dragon are now blurry. </figcaption>
+                </tr>
+            </table>
+        </div>
+        <br><br><br>
+
+        <p>Looking at this "focus stack" taken with a lensRadius of 0.2 and different focalDistances, we can see that as we vary the focalDistance, different parts of the dragon come into view. As the focalDistance went from 3.0 to 5.2, we could see that various parts of the dragon statue, starting from the mouth and heading towards the tail, came into focus.</p>
+
+
+        <h3>A Sequence of 4 Pictures With Visibly Different Aperture Sizes, All Focused at the Same Point Throughout CBDragon.dae renderred with 64 samples per pixel, 4 samples per light, and max_ray_depth of 5</h3>
+
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part4/aperture/b0.05.png" width="480px" />
+                    <figcaption align="middle">The scene captured with a camera with lensRadius of 0.05 and focalDistance of 4.5. Since the lensRadius is still quite small, the effect is still quite similar to a pinhole camera almost the entire scene is still in focus and shows up clearly.</figcaption>
+                </tr>
+            </table>
+        </div>
+        <br><br><br>
+
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part4/aperture/b0.15.png" width="480px" />
+                    <figcaption align="middle">The scene captured with a camera with lensRadius of 0.15 and focalDistance of 4.5. By increasing the lensRadius, we can see the tail of the dragon and the back corner of the room start to go out of focus. </figcaption>
+                </tr>
+            </table>
+        </div>
+        <br><br><br>
+
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part4/aperture/b0.45.png" width="480px" />
+                    <figcaption align="middle">The scene captured with a camera with lensRadius of 0.45 and focalDistance of 4.5. At this significantly larger lensRadius, almost the entirety of the dragon statue, as well as the rest of the scene, is already blurry. Only the mouth and front claw of the dragon statue appear to be in foucs. </figcaption>
+                </tr>
+            </table>
+        </div>
+        <br><br><br>
+
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part4/aperture/b0.85.png" width="480px" />
+                    <figcaption align="middle">The scene captured with a camera with lensRadius of 0.85 and focalDistance of 4.5. At this dramatically increased lensRadius, we can see that the entire scene becomes even blurrier than when taken with lensRadius of 0.45. With a larger lens, the further apart our samples along this lens can be, leading to taking into consideration radiance from points further and futher apart for regions of the scene that arent in focus. This is evident throug the aggressive blending of the blue wall and back wall in the rear of the scene when the foucs is on the dragon's mouth and claw. </figcaption>
+                </tr>
+            </table>
+        </div>
+        <br><br><br>
+
+</body>
