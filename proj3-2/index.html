@@ -1,7 +1,134 @@
-<html>
-	<head>
-	</head>
-	<body>
-		Project 3-2 here
-	</body>
-</html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<style>
+  body {
+    padding: 100px;
+    width: 1000px;
+    margin: auto;
+    text-align: left;
+    font-weight: 300;
+    font-family: 'Open Sans', sans-serif;
+    color: #121212;
+  }
+  h1, h2, h3, h4 {
+    font-family: 'Source Sans Pro', sans-serif;
+  }
+</style>
+<title>CS 184 Rasterizer</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link href="https://fonts.googleapis.com/css?family=Open+Sans|Source+Sans+Pro" rel="stylesheet">
+</head>
+
+
+<body>
+
+<h1 align="middle">CS 184: Computer Graphics and Imaging, Spring 2022</h1>
+<h1 align="middle">Project 3</h1>
+<h2 align="middle">Jasmine Wang, 3034027325</h2>
+<h2 align="middle">Victor Ho, 3033712816</h2>
+<h2 align="middle">website link:</h2>
+ <a href="https://cal-cs184-student.github.io/sp22-project-webpages-jwang99/proj3-1/index.html">https://cal-cs184-student.github.io/sp22-project-webpages-jwang99/proj3-1/index.html</a>
+
+<br><br>
+
+<h1 align="middle">Assignment 3 Part 2: PathTracer</h1>
+
+    <div class="padded">
+        <p>In this part of the project, we chose to implement parts 1 and 4, which included rendering for mirror and glass as well as different apertures and focal lengths. </p>
+
+    <h2 align="middle">Part 1: Mirror and Glass Materials</h2>
+
+    	<h3>Task 1 + 2: Reflection and Mirror Material</h3>
+    	<p>For the reflection portion of this part, we implemented the reflect and sample_f methods. Because wo is defined as a vector pointing towards the direction of an outgoing (post-reflection) ray of light, and wi is definedf
+			as a vector in the direction opposite the ray of incoming light (i.e. the vector points towards the direction that the incoming light ray is coming FROM), geometrically our wi vector ends up being equivalent
+		to the wo vector reflected about the z axis. This means that both x and y are flipped, so wi = (-wo.x, -wo.y, wo.z). After implementing this in our reflection method, the sampling method is straightforward:
+	because we only need to sample in the direction of the reflection, i.e. wi, we have our pdf as 1, set our wi using our reflect method, and return reflectance / abs_cos_theta(*wi) as in the spec. This returned value is becaudse
+for mirrors, we don't have any Lambertian falloff, and we need to divide by cosine theta to cancel it out so our final value is just the reflectance.</p>
+    	<h3>Task 3: Refraction</h3>
+    	<p>For refraction, we first see whether our index of refraction refers to a material our ray of light is exiting or if it corresponds to a material our ray is exiting. For our purposes here, we are assuming that light rays do not pass directly from one 
+			non-air material into another. Because our z axis is the normal of our surface, we know that if our z value in wo is positive, the ray that we are tracing is entering the material, and if it is negative then our ray is exiting the material. Using this, we can simply
+			check the sign of our wo.z, and set our eta to 1/ior if it's positive and ior if it's negative. Then, by doing some basic trigonometry to find our ray's x, y, and z coordinates in terms of spherical coordinates theta and phi (or by looking at the spec), then using
+			Snell's law to see that sin(theta_prime) = eta * sin(theta) and acknowledging that our phi_prime is simply pi degrees opposite our phi, we can find (or read from the spec) that the x and y components of our wi vector are simply our x and y components of our wo vector scaled by eta and negated, whereas 
+			our z component for wi is sqrt(1 - eta^2 * (1 - wo.z^2)) (the sign of which is opposite the sign of wo.z). We also check to make sure the inside of our square root is positive, as if it is negative then this represents total internal reflection and no light is refracted. </p>
+		<p>Now that we have our direction vector for wi, in our sampling function for refraction we set wi appropriately with our refract method, set pdf to 1 once again for similar reasons as in the mirrors, and return transmittance / abs_cos_theta(*wi) / eta^2 (where we divide by eta^2 to account for the concentration and dispersion of light
+			that happens when we enter and exit a material with a higher ior). 
+		</p>
+    	<h3>Task 4: Glass</h3>
+		<p>Now that we have reflection and refraction in place, we can emulate glass, which does both, in our GlassBSDF::sample_f function. First, we check for total internal reflection by seeing if our refract function returns false, signifying that our wo vector corresponds to total internal reflection. If so, then we 
+			exhibit purely reflective behavior, the same as in our mirror sample_f function. If this is not the case, then we calculate our Schlick's reflection coefficient, which is defined as R = R0 + (1-R0) * (1 - cos(theta)^5). Here, because we are only dealing with entering and exiting from/to air, our R0 is simply ((ior-1)/(ior+1))^2, and 
+			we are assisted by the fact that cos(theta) is just the magnitude of wo.z. Now that we have R, we simply do a coin flip on this coefficient: with probability R, we exhibit reflective (as in sample_f for the mirror), and with probability 1-R, we exhibit refractive behavior (as in our refract sample_f). The only difference here is that we scale our reflective and refractive
+			vectors by R an 1-R respectively.
+		</p>
+
+		<div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part1/spheres_0.png" width="480px" />
+                    <figcaption align="middle">Spheres with max_ray_depth = 0</figcaption>
+                </tr>
+            </table>
+        </div>
+		<div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part1/spheres_1.png" width="480px" />
+                    <figcaption align="middle">Spheres with max_ray_depth = 1</figcaption>
+                </tr>
+            </table>
+        </div>
+		<div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part1/spheres_2.png" width="480px" />
+                    <figcaption align="middle">Spheres with max_ray_depth = 2</figcaption>
+                </tr>
+            </table>
+        </div>
+		<div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part1/spheres_3.png" width="480px" />
+                    <figcaption align="middle">Spheres with max_ray_depth = 3</figcaption>
+                </tr>
+            </table>
+        </div>
+		<div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part1/spheres_4.png" width="480px" />
+                    <figcaption align="middle">Spheres with max_ray_depth = 4</figcaption>
+                </tr>
+            </table>
+        </div>
+		<div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part1/spheres_5.png" width="480px" />
+                    <figcaption align="middle">Spheres with max_ray_depth = 5</figcaption>
+                </tr>
+            </table>
+        </div>
+		<div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part1/spheres_100.png" width="480px" />
+                    <figcaption align="middle">Spheres with max_ray_depth = 100</figcaption>
+                </tr>
+            </table>
+        </div>
+		<p>In the 0 bounce radiance, we can see only the light source.</p>
+		<p> With 1 bounce, we can also see the walls and reflection of the light on the spheres, but most of the spheres are black because our ray tracing only hits the light source on one bounce
+			with the direct highlights of the spheres, due to their reflective nature. We can see that the highlight of the glass sphere is less defined, as some of these rays are coin flipping to refraction and being lost to the single bounce.
+		</p>
+		<p> With 2 bounce, the mirror sphere now shows the walls in addition to the light source. We can also see the reflective portion of the glass.</p>
+		<p> With 3 bounce, the refraction of the glass is now also visible.</p>
+		<p> With 4 bounce, we can now see the light that goes through the glass, bounces off the mirror, and into the viewer. We can also see more reflection on the bottom of the glass ball. The image is now mostly 
+			"complete"; with 5 bounce to 100 bounce, the lighting becomes more accurate and softer, with a similar effect as non mirror/glass objects.</p>
