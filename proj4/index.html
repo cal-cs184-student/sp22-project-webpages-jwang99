@@ -1,7 +1,492 @@
-<html>
-	<head>
-	</head>
-	<body>
-		Project 4 here
-	</body>
-</html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<style>
+  body {
+    padding: 100px;
+    width: 1000px;
+    margin: auto;
+    text-align: left;
+    font-weight: 300;
+    font-family: 'Open Sans', sans-serif;
+    color: #121212;
+  }
+  h1, h2, h3, h4 {
+    font-family: 'Source Sans Pro', sans-serif;
+  }
+</style>
+<title>CS 184 Cloth Sim</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link href="https://fonts.googleapis.com/css?family=Open+Sans|Source+Sans+Pro" rel="stylesheet">
+</head>
+
+
+<body>
+
+<h1 align="middle">CS 184: Computer Graphics and Imaging, Spring 2022</h1>
+<h1 align="middle">Project 4</h1>
+<h2 align="middle">Jasmine Wang, 3034027325</h2>
+<h2 align="middle">Victor Ho, 3033712816</h2>
+<h2 align="middle">website link:</h2>
+ <a href="https://cal-cs184-student.github.io/sp22-project-webpages-jwang99/proj4/index.html">https://cal-cs184-student.github.io/sp22-project-webpages-jwang99/proj4/index.html</a>
+
+<br><br>
+
+<h1 align="middle">Assignment 4: ClothSim</h1>
+
+    <div class="padded">
+     
+    <h2 align="middle">Overview and Challenges Encountered</h2>
+    <p>TODO: Give an overview of what was made in the project. Explain what challenges were encountered</p>
+    <p>TODO: Explain how we worked together as a team</p>
+
+    <h2 align="middle">Part 1: Masses and Springs</h2>
+
+    	<h3>Implementation Summary and Approach</h3>
+    	<p>TODO: Enter Approach Here</p>
+
+    	<br><br><br>
+
+    	<h3>Take some screenshots of scene/pinned2.json from a viewing angle where you can clearly see the cloth wireframe to show the structure of your point masses and springs.</h3>
+    	<p>TODO: Enter Text here</p>
+
+    	<br><br><br>
+
+    	<h3>Show us what the wireframe looks like (1) without any shearing constraints, (2) with only shearing constraints, and (3) with all constraints</h3>
+    	<p>TODO: Enter Text here </p>
+
+		<div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part1/no_constraints.png" width="480px" />
+                    <figcaption align="middle">Wireframe without any shearing constraints</figcaption>
+                </tr>
+            </table>
+        </div>
+		<div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part1/only_shearing.png" width="480px" />
+                    <figcaption align="middle">Wireframe with only shearing constraints</figcaption>
+                </tr>
+            </table>
+        </div>
+		<div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part1/all_constraints.png" width="480px" />
+                    <figcaption align="middle">Wireframe with all constraints</figcaption>
+                </tr>
+            </table>
+        </div>
+		<p>TODO: Explain images here</p>
+
+
+	<br><br><br><br>
+    <h2 align="middle">Part 2: Simulation Via Numerical Integration: </h2>
+    	<h3>Implementation Summary and Approach</h3>
+
+        <p>TODO: Enter approach here</p>
+
+        <br><br><br>
+
+        <h3>Describe the effects of changing the spring constant ks; how does the cloth behave from start to rest with a very low ks? A high ks?</h3>
+
+        <p>TODO: Enter Text Here.</p>
+
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part2/low_ks.png" width="480px" />
+                    <figcaption align="middle">The effect of having a low spring constant</figcaption>
+                </tr>
+            </table>
+        </div>
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part2/high_ks.png" width="480px" />
+                    <figcaption align="middle">The effect of having a high spring constant</figcaption>
+                </tr>
+            </table>
+        </div>
+
+        <p>TODO: Explain images Here.</p>
+
+        <br><br><br>
+
+
+        <h3>What about density?</h3>
+
+        <p>TODO: Enter Text Here.</p>
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part2/low_density.png" width="480px" />
+                    <figcaption align="middle">The effect of having low density</figcaption>
+                </tr>
+            </table>
+        </div>
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part2/high_density.png" width="480px" />
+                    <figcaption align="middle">The effect of having high density</figcaption>
+                </tr>
+            </table>
+        </div>
+
+        <p>TODO: Explain images Here.</p>
+
+        <br><br><br>
+
+
+        <h3>What about damping?</h3>
+
+        <p>TODO: Enter Text Here.</p>
+
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part2/low_damping.png" width="480px" />
+                    <figcaption align="middle">The effect of having low damping</figcaption>
+                </tr>
+            </table>
+        </div>
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part2/high_damping.png" width="480px" />
+                    <figcaption align="middle">The effect of having high damping</figcaption>
+                </tr>
+            </table>
+        </div>
+
+        <p>TODO: Explain images Here.</p>
+
+        <br><br><br>
+
+
+        <h3>Show us a screenshot of your shaded cloth from scene/pinned4.json in its final resting state! If you choose to use different parameters than the default ones, please list them.</h3>
+
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part2/resting_state.png" width="480px" />
+                    <figcaption align="middle">The resting state of the shaded cloth.</figcaption>
+                </tr>
+            </table>
+        </div>
+
+        <br><br><br>
+
+    <br><br><br><br>
+    <h2 align="middle">Part 3: Handling Collision with Other Objects: </h2>
+    	<h3>Implementation Summary and Approach</h3>
+
+    	<p>TODO: Enter approach here</p>
+
+        <br><br><br>
+
+        <h3>Show us screenshots of your shaded cloth from scene/sphere.json in its final resting state on the sphere using the default ks = 5000 as well as with ks = 500 and ks = 50000. Describe the differences in the results.</h3>
+
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part3/resting_state_5000.png" width="480px" />
+                    <figcaption align="middle">The resting state of the shaded cloth from scene/sphere.json in its final resting state with ks=5000.</figcaption>
+                </tr>
+            </table>
+        </div>
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part3/resting_state_500.png" width="480px" />
+                    <figcaption align="middle">The resting state of the shaded cloth from scene/sphere.json in its final resting state with ks=500.</figcaption>
+                </tr>
+            </table>
+        </div>
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part3/resting_state_50000.png" width="480px" />
+                    <figcaption align="middle">The resting state of the shaded cloth from scene/sphere.json in its final resting state with ks=50000.</figcaption>
+                </tr>
+            </table>
+        </div>
+
+        <br><br><br>
+
+        <p>TODO: Explain the differences seen in the screenshots</p>
+
+ 		<h3>Show us a screenshot of your shaded cloth lying peacefully at rest on the plane. If you haven't by now, feel free to express your colorful creativity with the cloth! (You will need to complete the shaders portion first to show custom colors.)</h3>
+
+ 		<div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part3/cloth_at_rest.png" width="480px" />
+                    <figcaption align="middle">The cloth lying peacefully at rest on the plane</figcaption>
+                </tr>
+            </table>
+        </div>
+
+    <br><br><br><br>
+    <h2 align="middle">Part 4: Handling Self-collisions: </h2>
+    	<h3>Implementation Summary and Approach</h3>
+    	<p>TODO: Enter approach here</p>
+
+        <br><br><br>
+
+        <h3>Show us at least 3 screenshots that document how your cloth falls and folds on itself, starting with an early, initial self-collision and ending with the cloth at a more restful state (even if it is still slightly bouncy on the ground).</h3>
+
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part4/screenshot_1.png" width="480px" />
+                    <figcaption align="middle">Cloth early in the falling process</figcaption>
+                </tr>
+            </table>
+        </div>
+
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part4/screenshot_2.png" width="480px" />
+                    <figcaption align="middle">Cloth midway in the falling process</figcaption>
+                </tr>
+            </table>
+        </div>
+
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part4/screenshot_3.png" width="480px" />
+                    <figcaption align="middle">Cloth near the end of the falling process</figcaption>
+                </tr>
+            </table>
+        </div>
+
+        <p>TODO: Explain what is going on in the photos as the cloth is falling</p>
+
+       	<br><br><br>
+
+        <h3>Vary the density as well as ks and describe with words and screenshots how they affect the behavior of the cloth as it falls on itself.</h3>
+
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part4/low_density.png" width="480px" />
+                    <figcaption align="middle">How cloth falls with low density</figcaption>
+                </tr>
+            </table>
+        </div>
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part4/high_density.png" width="480px" />
+                    <figcaption align="middle">How cloth falls with high density</figcaption>
+                </tr>
+            </table>
+        </div>
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part4/low_ks.png" width="480px" />
+                    <figcaption align="middle">How cloth falls with low ks</figcaption>
+                </tr>
+            </table>
+        </div>
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part4/high_ks.png" width="480px" />
+                    <figcaption align="middle">How cloth falls with high ks</figcaption>
+                </tr>
+            </table>
+        </div>
+
+        <p>TODO: Explain the differences between how low/high density/ks conditions and how they affect falling</p>
+
+   	<br><br><br><br>
+    <h2 align="middle">Part 4: Handling Self-collisions: </h2>
+    	<h3>Implementation Summary and Approach</h3>
+    	<p>TODO: Enter approach here</p>
+
+        <br><br><br>
+
+        <h3>Explain in your own words what is a shader program and how vertex and fragment shaders work together to create lighting and material effects.</h3>
+
+        <p>TODO: Explain the difference</p>
+
+        <h3>Explain the Blinn-Phong shading model in your own words. Show a screenshot of your Blinn-Phong shader outputting only the ambient component, a screen shot only outputting the diffuse component, a screen shot only outputting the specular component, and one using the entire Blinn-Phong model.</h3>
+
+        <p>TODO: Explain the model</p>
+
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part5/BP_ambient.png" width="480px" />
+                    <figcaption align="middle">Blinn Phong shader outputting only the ambient component.</figcaption>
+                </tr>
+            </table>
+        </div>
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part5/BP_diffuse.png" width="480px" />
+                    <figcaption align="middle">Blinn Phong shader outputting only the diffuse component.</figcaption>
+                </tr>
+            </table>
+        </div>
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part5/BP_specular.png" width="480px" />
+                    <figcaption align="middle">Blinn Phong shader outputting only the specular component.</figcaption>
+                </tr>
+            </table>
+        </div>
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part5/BP_complete.png" width="480px" />
+                    <figcaption align="middle">Blinn Phong shader using the entire model.</figcaption>
+                </tr>
+            </table>
+        </div>
+
+        <br><br><br>
+
+        <h3>Show a screenshot of your texture mapping shader using your own custom texture by modifying the textures in /textures/.</h3>
+
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part5/custom_texture_shading.png" width="480px" />
+                    <figcaption align="middle">Texture mapping shader using custom texture</figcaption>
+                </tr>
+            </table>
+        </div>
+
+        <br><br><br>
+
+        <h3>Show a screenshot of bump mapping on the cloth and on the sphere. Show a screenshot of displacement mapping on the sphere. Using texture TODO: SPECIFY TEXTURE. Compare the two approaches and resulting renders in your own words. Compare how your the two shaders react to the sphere by changing the sphere mesh's coarseness by using -o 16 -a 16 and then -o 128 -a 128.</h3>
+
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part5/bump_cloth.png" width="480px" />
+                    <figcaption align="middle">Screenshot of bump mapping on the cloth</figcaption>
+                </tr>
+            </table>
+        </div>
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part5/bump_sphere.png" width="480px" />
+                    <figcaption align="middle">Screenshot of bump mapping on the sphere</figcaption>
+                </tr>
+            </table>
+        </div>
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part5/displacement_sphere.png" width="480px" />
+                    <figcaption align="middle">Screenshot of displacement mapping on the sphere</figcaption>
+                </tr>
+            </table>
+        </div>
+
+        <p>TODO: compare the two approaches and the resulting renders</p>
+
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part5/bump_sphere_coarse.png" width="480px" />
+                    <figcaption align="middle">Screenshot of bump mapping on the sphere with mesh coarseness parameters of -o 16 -a 16</figcaption>
+                </tr>
+            </table>
+        </div>
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part5/bump_sphere_fine.png" width="480px" />
+                    <figcaption align="middle">Screenshot of bump mapping on the sphere with mesh coarseness parameters of -o 128 -a 128</figcaption>
+                </tr>
+            </table>
+        </div>
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part5/displacement_sphere_coarse.png" width="480px" />
+                    <figcaption align="middle">Screenshot of displacement mapping on the sphere with mesh coarseness parameters of -o 16 -a 16</figcaption>
+                </tr>
+            </table>
+        </div>
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part5/displacement_sphere_coarse.png" width="480px" />
+                    <figcaption align="middle">Screenshot of displacement mapping on the sphere with mesh coarseness parameters of -o 128 -a 128</figcaption>
+                </tr>
+            </table>
+        </div>
+
+        <p>TODO: explain how mesh coarseness changes the render with two mapping strategies</p>
+
+
+        <h3>Show a screenshot of your mirror shader on the cloth and on the sphere.</h3>
+
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part5/mirror_cloth.png" width="480px" />
+                    <figcaption align="middle">Cloth shaded with mirror shader</figcaption>
+                </tr>
+            </table>
+        </div>
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/part5/mirror_sphere.png" width="480px" />
+                    <figcaption align="middle">Sphere shaded with mirror shader</figcaption>
+                </tr>
+            </table>
+        </div>
+
+</body>
